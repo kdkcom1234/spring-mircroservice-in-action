@@ -18,13 +18,13 @@ class LicenseService(private val messages: MessageSource) {
         return  license
     }
 
-    fun createLicense(license: License?, organizationId: String, locale: Locale) : String? {
+    fun createLicense(license: License?, organizationId: String, locale: Locale?) : String? {
         println(messages)
 
         var responseMessage : String? = null
         if(license != null) {
             license.organizationId = organizationId
-            responseMessage =  messages.getMessage("license.create.message", null, locale)
+            responseMessage =  messages.getMessage("license.create.message", null, locale ?: Locale.US)
         }
 
         return responseMessage
