@@ -2,6 +2,7 @@ package com.optimagrowth.license.controller
 
 import com.optimagrowth.license.model.License
 import com.optimagrowth.license.service.LicenseService
+import org.springframework.hateoas.server.mvc.linkTo
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.DeleteMapping
 import org.springframework.web.bind.annotation.GetMapping
@@ -23,6 +24,14 @@ class LicenseController(private val licenseService: LicenseService) {
         @PathVariable organizationId: String,
         @PathVariable licenseId: String) : ResponseEntity<License>  {
         val license = licenseService.getLicense(licenseId, organizationId)
+        // HAETEOS 표현 링크 추가
+        license.add(
+            linkTo<LicenseController> { getLicense(organizationId, license.licenseId) }.withSelfRel(),
+            linkTo<LicenseController> { createLicense(organizationId, license, null) }.withRel("createLicense"),
+            linkTo<LicenseController> { updateLicense(organizationId, license)  }.withRel("updateLicense"),
+            linkTo<LicenseController> { deleteLicense(organizationId, license.licenseId) }.withRel("deleteLicense")
+        )
+
         return ResponseEntity.ok(license)
     }
 
