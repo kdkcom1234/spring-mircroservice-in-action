@@ -24,7 +24,7 @@ class LicenseService(private val messages: MessageSource) {
         var responseMessage : String? = null
         if(license != null) {
             license.organizationId = organizationId
-            responseMessage = messages.getMessage("license.create.message", null, locale)
+            responseMessage =  messages.getMessage("license.create.message", null, locale)
         }
 
         return responseMessage

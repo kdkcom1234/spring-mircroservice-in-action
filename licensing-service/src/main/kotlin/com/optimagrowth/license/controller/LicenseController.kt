@@ -37,9 +37,10 @@ class LicenseController(private val licenseService: LicenseService) {
     fun createLicense(
         @PathVariable organizationId: String,
         @RequestBody request : License,
-        @RequestHeader(value = "Accept-Language", required = false) locale: Locale) : ResponseEntity<String>  {
+        @RequestHeader(value = "Accept-Language", required = false) locale: Locale?) : ResponseEntity<String>  {
         println(locale)
-        return ResponseEntity.ok(licenseService.createLicense(request, organizationId, locale))
+
+        return ResponseEntity.ok(licenseService.createLicense(request, organizationId, locale ?: Locale.US))
     }
 
     @DeleteMapping("/{licenseId}")
