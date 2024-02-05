@@ -45,3 +45,72 @@
   - 액추에이터 설정: base-path, 활성 기능 설정
 
 ## 4장 도커
+- 컨테이너와 도커는 마이크로서비스 환경의 이식성과 격리성을 도달하는데 주요한 도구로 사용된다.
+
+### 1. Dockerfile 및 Docker CLI를 이용
+#### Dockerfile
+```
+FROM eclipse-temurin:17-jre
+ARG JAR_FILE=target/*.jar
+COPY ${JAR_FILE} app.jar
+ENTRYPOINT ["java","-jar","app.jar"]
+```
+#### build & run
+```shell
+docker -t ostock/licensing-service:latest .
+docker run -p 8080:8080 ostock/licensing-service:latest
+```
+
+### 2. Docker compose
+#### docker-compose.yml
+```yml
+version: '3.7'
+services:
+  licensingservice:
+    image: ostock/licensing-service:latest
+    ports:
+      - "8080:8080"
+    environment:
+      - "SPRING_PROFILES_ACTIVE=dev"
+    networks:
+      backend:
+        aliases:
+          - "licenseservice"
+
+networks:
+  backend:
+    driver: bridge
+```
+#### compose run
+```
+docker compose up
+docker compose down
+```
+
+### 3. Spring Boot에서 도커 빌드
+- pom.xml
+```xml
+  <properties>
+		<java.version>17</java.version>
+		<kotlin.version>1.9.22</kotlin.version>
+    <!-- 이미지 prefix -->
+		<docker.image.prefix>ostock</docker.image.prefix>
+	</properties>
+
+  <!-- ... -->
+  
+  <plugin>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-maven-plugin</artifactId>
+    <!-- 이미지명 설멍 -->
+    <configuration>
+      <image>
+        <name>${docker.image.prefix}/${project.artifactId}:latest</name>
+      </image>
+    </configuration>
+  </plugin>
+```
+```shell
+./mvnw spring-boot:build-image
+docker run -p8080:8080 ostock/licensing-service:latest
+```
