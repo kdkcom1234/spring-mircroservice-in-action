@@ -16,6 +16,7 @@
 	<properties>
 		<java.version>17</java.version>
 		<kotlin.version>1.9.22</kotlin.version>
+		<docker.image.prefix>ostock</docker.image.prefix>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -58,6 +59,11 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<image>
+						<name>${docker.image.prefix}/${project.artifactId}:latest</name>
+					</image>
+				</configuration>
 			</plugin>
 			<plugin>
 				<groupId>org.jetbrains.kotlin</groupId>
