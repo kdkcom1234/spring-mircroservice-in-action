@@ -117,3 +117,14 @@ docker compose down
 ./mvnw spring-boot:build-image
 docker run -p8080:8080 ostock/licensing-service:latest
 ```
+
+## 5장 스프링 클라우드 서버로 구성 관리
+- 서비스와 구성을 분리한다
+- 컨피그 서버 설정에서 현재 버전은 bootstrap.yml 대신에 application.yml을 사용
+- 컨피그 클라이언트 설정에서 현재 버전은 아래와 같이 application.yml을 작성하여야 한다.
+### application.yml(클라언트측)
+```yml
+spring:
+  config:
+    import: optional:configserver:http://localhost:8071
+```
