@@ -8,6 +8,7 @@ spring:
 #    active: native
     # active: native, git
      active: git
+#     active: vault
   cloud:
     config:
       server:
@@ -15,10 +16,15 @@ spring:
 #        native:
 #          # 특정 파일 시스템 폴더에서 읽어 온다.
 #          search-locations: classpath:/config
-#        git:
-#          uri: https://github.com/kdkcom1234/spring-cloud-config
+           # 깃 저장소 주소와 경로를 추가
           git:
             uri: https://github.com/kdkcom1234/spring-mircroservice-in-action
             searchPaths: config
+#        vault:
+#          port: 8200
+#          host: 127.0.0.1
+#          kvVersion: 2
+#          backend: licensing-service
+#          profile-separator: /
 server:
   port: 8071
