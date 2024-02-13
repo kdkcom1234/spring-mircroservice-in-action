@@ -22,77 +22,77 @@ services:
       interval: 30s
       timeout: 30s
       retries: 3
-#  configserver:
-#    image: ostock/config-server:latest
-#    container_name: configserver
-#    hostname: configserver
-#    ports:
-#      - "8071:8071"
-#    networks:
-#      - backend
-#    healthcheck:
-#        test: ["CMD-SHELL", "curl -f http://configserver:8071/actuator/health || exit 1"]
-#        start_period: 5s
-#        start_interval: 5s
-#        interval: 30s
-#        timeout: 30s
-#        retries: 3
-#  eurekaserver:
-#    image: ostock/eureka-server:latest
-#    container_name: eurekaserver
-#    hostname: eurekaserver
-#    ports:
-#      - "8070:8070"
-#    environment:
-#      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
-#    depends_on:
-#      configserver:
-#        condition: service_healthy
-#    networks:
-#      - backend
-#    healthcheck:
-#      test: [ "CMD-SHELL", "curl -f http://eurekaserver:8070/actuator/health || exit 1" ]
-#      start_period: 5s
-#      start_interval: 5s
-#      interval: 30s
-#      timeout: 30s
-#      retries: 3
-#  licensingservice:
-#    image: ostock/licensing-service:latest
-#    container_name: licensingservice
-#    hostname: licensingservice
-#    environment:
-#      - "SPRING_PROFILES_ACTIVE=dev"
-#      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
-#    depends_on:
-#      database:
-#        condition: service_healthy
-#      configserver:
-#        condition: service_healthy
-#      eurekaserver:
-#        condition: service_healthy
-#    ports:
-#      - "8080:8080"
-#    networks:
-#      - backend
-#  organizationservice:
-#    image: ostock/organization-service:latest
-#    container_name: organizationservice
-#    hostname: organizationservice
-#    environment:
-#      - "SPRING_PROFILES_ACTIVE=dev"
-#      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
-#    depends_on:
-#      database:
-#        condition: service_healthy
-#      configserver:
-#        condition: service_healthy
-#      eurekaserver:
-#        condition: service_healthy
-#    ports:
-#      - "8081:8081"
-#    networks:
-#      - backend
+  configserver:
+    image: ostock/config-server:latest
+    container_name: configserver
+    hostname: configserver
+    ports:
+      - "8071:8071"
+    networks:
+      - backend
+    healthcheck:
+        test: ["CMD-SHELL", "curl -f http://configserver:8071/actuator/health || exit 1"]
+        start_period: 5s
+        start_interval: 5s
+        interval: 30s
+        timeout: 30s
+        retries: 3
+  eurekaserver:
+    image: ostock/eureka-server:latest
+    container_name: eurekaserver
+    hostname: eurekaserver
+    ports:
+      - "8070:8070"
+    environment:
+      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
+    depends_on:
+      configserver:
+        condition: service_healthy
+    networks:
+      - backend
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://eurekaserver:8070/actuator/health || exit 1" ]
+      start_period: 5s
+      start_interval: 5s
+      interval: 30s
+      timeout: 30s
+      retries: 3
+  licensingservice:
+    image: ostock/licensing-service:latest
+    container_name: licensingservice
+    hostname: licensingservice
+    environment:
+      - "SPRING_PROFILES_ACTIVE=dev"
+      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
+    depends_on:
+      database:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    ports:
+      - "8080:8080"
+    networks:
+      - backend
+  organizationservice:
+    image: ostock/organization-service:latest
+    container_name: organizationservice
+    hostname: organizationservice
+    environment:
+      - "SPRING_PROFILES_ACTIVE=dev"
+      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
+    depends_on:
+      database:
+        condition: service_healthy
+      configserver:
+        condition: service_healthy
+      eurekaserver:
+        condition: service_healthy
+    ports:
+      - "8081:8081"
+    networks:
+      - backend
 
 networks:
   backend:
