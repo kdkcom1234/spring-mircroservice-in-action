@@ -1,33 +1,38 @@
 version: '3.7'
 services:
-  database:
-    image: postgres:latest
-    hostname: database
-    ports:
-      - "15432:5432"
-    environment:
-      POSTGRES_USER: "postgres"
-      POSTGRES_PASSWORD: "postgres"
-      POSTGRES_DB:       "ostock_dev"
-    volumes:
-      - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
-      - ./data.sql:/docker-entrypoint-initdb.d/2-data.sql
-    networks:
-      - backend
-    healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U postgres"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
+#  database:
+#    image: postgres:latest
+#    container_name: database
+#    hostname: database
+#    ports:
+#      - "15432:5432"
+#    environment:
+#      POSTGRES_USER: "postgres"
+#      POSTGRES_PASSWORD: "postgres"
+#      POSTGRES_DB:       "ostock_dev"
+#    volumes:
+#      - ./init.sql:/docker-entrypoint-initdb.d/1-init.sql
+#      - ./data.sql:/docker-entrypoint-initdb.d/2-data.sql
+#    networks:
+#      - backend
+#    healthcheck:
+#      test: ["CMD-SHELL", "pg_isready -U postgres"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
   configserver:
     image: ostock/config-server:latest
+    container_name: configserver
     hostname: configserver
     ports:
       - "8071:8071"
     networks:
       - backend
+    healthcheck:
+        test: ["CMD-SHELL", "curl -f http://configserver:8071/actuator/health || exit 1"]
   eurekaserver:
     image: ostock/eureka-server:latest
+    container_name: eurekaserver
     hostname: eurekaserver
     ports:
       - "8070:8070"
@@ -35,41 +40,47 @@ services:
       - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
     depends_on:
       configserver:
-        condition: service_started
-    networks:
-      - backend
-  licensingservice:
-    image: ostock/licensing-service:latest
-    environment:
-      - "SPRING_PROFILES_ACTIVE=dev"
-      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
-    depends_on:
-      database:
         condition: service_healthy
-      configserver:
-        condition: service_started
-      eurekaserver:
-        condition: service_started
-    ports:
-      - "8080:8080"
     networks:
       - backend
-  organizationservice:
-    image: ostock/organization-service:latest
-    environment:
-      - "SPRING_PROFILES_ACTIVE=dev"
-      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
-    depends_on:
-      database:
-        condition: service_healthy
-      configserver:
-        condition: service_started
-      eurekaserver:
-        condition: service_started
-    ports:
-      - "8081:8081"
-    networks:
-      - backend
+    healthcheck:
+      test: [ "CMD-SHELL", "curl -f http://configserver:8071/actuator/health || exit 1" ]
+#  licensingservice:
+#    image: ostock/licensing-service:latest
+#    container_name: licensingservice
+#    hostname: licensingservice
+#    environment:
+#      - "SPRING_PROFILES_ACTIVE=dev"
+#      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
+#    depends_on:
+#      database:
+#        condition: service_healthy
+#      configserver:
+#        condition: service_started
+#      eurekaserver:
+#        condition: service_started
+#    ports:
+#      - "8080:8080"
+#    networks:
+#      - backend
+#  organizationservice:
+#    image: ostock/organization-service:latest
+#    container_name: organizationservice
+#    hostname: organizationservice
+#    environment:
+#      - "SPRING_PROFILES_ACTIVE=dev"
+#      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
+#    depends_on:
+#      database:
+#        condition: service_healthy
+#      configserver:
+#        condition: service_started
+#      eurekaserver:
+#        condition: service_started
+#    ports:
+#      - "8081:8081"
+#    networks:
+#      - backend
 
 networks:
   backend:
