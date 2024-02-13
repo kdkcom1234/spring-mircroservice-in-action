@@ -125,6 +125,20 @@ docker run -p8080:8080 ostock/licensing-service:latest
 ### application.yml(클라언트측)
 ```yml
 spring:
+  application:
+    name: licensing-service
   config:
     import: optional:configserver:http://localhost:8071
+```
+### git 저장소 사용(컨피그서버측)
+```yml
+spring:
+  profiles:
+     active: git
+  cloud:
+    config:
+      server:
+          git:
+            uri: https://github.com/kdkcom1234/spring-mircroservice-in-action
+            searchPaths: config
 ```
