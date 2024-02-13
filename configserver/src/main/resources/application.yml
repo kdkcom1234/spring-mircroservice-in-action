@@ -5,8 +5,9 @@ spring:
     name: config-server
   # 백엔드 저장소(파일 시스템)와 관련된 스프링 프로파일을 설정한다.
   profiles:
+#    active: native
     # active: native, git
-    # active: git
+     active: git
   cloud:
     config:
       server:
@@ -14,7 +15,10 @@ spring:
 #        native:
 #          # 특정 파일 시스템 폴더에서 읽어 온다.
 #          search-locations: classpath:/config
-        git:
-          uri: https://github.com/kdkcom1234/spring-cloud-config
+#        git:
+#          uri: https://github.com/kdkcom1234/spring-cloud-config
+          git:
+            uri: https://github.com/kdkcom1234/spring-mircroservice-in-action
+            searchPaths: config
 server:
   port: 8071
