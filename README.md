@@ -141,6 +141,7 @@ spring:
     config:
       server:
           git:
+            # 컨피그 서버/클라이언트 모두 기본 브랜치를 main으로 사용함
             uri: https://github.com/kdkcom1234/spring-mircroservice-in-action
             searchPaths: config
 ```
