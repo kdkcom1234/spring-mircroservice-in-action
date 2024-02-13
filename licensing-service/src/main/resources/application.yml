@@ -2,7 +2,7 @@ spring:
   application:
     name: licensing-service
   profiles:
-    active: dev
+    active: default
   # ?? ??? configserver ?? ?? ??
   config:
     import: optional:configserver:http://localhost:8071
