@@ -33,7 +33,7 @@ services:
     ports:
       - "8070:8070"
     environment:
-      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
+      - "SPRING_PROFILES_ACTIVE=dev"
     depends_on:
       configserver:
         condition: service_started
@@ -45,7 +45,6 @@ services:
     image: ostock/licensing-service:latest
     environment:
       - "SPRING_PROFILES_ACTIVE=dev"
-      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
     depends_on:
       database:
         condition: service_healthy
@@ -59,7 +58,6 @@ services:
     image: ostock/organization-service:latest
     environment:
       - "SPRING_PROFILES_ACTIVE=dev"
-      - "SPRING_CONFIG_IMPORT=optional:configserver:http://configserver:8071"
     depends_on:
       database:
         condition: service_healthy

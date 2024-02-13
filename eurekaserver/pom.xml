@@ -29,17 +29,6 @@
 		<dependency>
 			<groupId>org.springframework.cloud</groupId>
 			<artifactId>spring-cloud-starter-netflix-eureka-server</artifactId>
-			<!-- 리본 로드밸런서 제외-->
-			<exclusions>
-				<exclusion>
-					<groupId>org.springframework.cloud</groupId>
-					<artifactId>spring-cloud-starter-ribbon</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.netflix.ribbon</groupId>
-					<artifactId>ribbon-eureka</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 		<!-- 스프링 클라우드 로드밸런서 추가-->
 		<dependency>
