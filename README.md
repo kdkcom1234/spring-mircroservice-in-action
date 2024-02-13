@@ -65,7 +65,7 @@ ENTRYPOINT ["java","-jar","app.jar"]
 # jar
 ./mvnw package 
 # image
-docker -t ostock/licensing-service:latest .
+docker build -t ostock/licensing-service:latest .
 docker run -p 8080:8080 ostock/licensing-service:latest
 ```
 
