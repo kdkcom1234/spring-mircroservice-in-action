@@ -122,6 +122,7 @@ docker run -p8080:8080 ostock/licensing-service:latest
 - 서비스와 구성을 분리한다
 - 컨피그 서버 설정에서 현재 버전은 bootstrap.yml 대신에 application.yml을 사용
 - 컨피그 클라이언트 설정에서 현재 버전은 아래와 같이 application.yml을 작성하여야 한다.
+
 ### application.yml(클라언트측)
 ```yml
 spring:
@@ -130,6 +131,7 @@ spring:
   config:
     import: optional:configserver:http://localhost:8071
 ```
+
 ### git 저장소 사용(컨피그서버측)
 ```yml
 spring:
@@ -141,4 +143,10 @@ spring:
           git:
             uri: https://github.com/kdkcom1234/spring-mircroservice-in-action
             searchPaths: config
+```
+
+### Vault를 docker로 실행
+```shell
+# vault:버전을 명시적으로 작성해야 실행가능함
+docker run -d -p 8200:8200 --name value -e 'VAULT_DEV_ROOT_TOKEN_ID=myroot' -e 'VAULT_DEV_LISTEN_ADDRESS=0.0.0.0:8200' vault:1.13.3
 ```
