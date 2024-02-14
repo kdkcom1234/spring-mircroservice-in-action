@@ -8,9 +8,12 @@ docker-compose up
 docker-compose down
 # 특정 서비스 종료
 docker compose stop licensingservice
-docker compose remove licensingservice
+docker compose down licensingservice
 # 특정 서비스 시작
 docker compose up licensingservice
+# 특정 서비스 로그 확인
+docker compose logs licensingservice
+docker compose logs -f licensingservice
 ```
 
 ## 서비스 설정
