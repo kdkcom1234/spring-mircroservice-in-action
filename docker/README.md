@@ -2,8 +2,15 @@
 
 ## docker-compose로 실행
 ```shell
+# 전체시작 
 docker-compose up
+# 전체 종료
 docker-compose down
+# 특정 서비스 종료
+docker compose stop licensingservice
+docker compose remove licensingservice
+# 특정 서비스 시작
+docker compose up licensingservice
 ```
 
 ## 서비스 설정
