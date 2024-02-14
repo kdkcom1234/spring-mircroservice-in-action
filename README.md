@@ -36,9 +36,9 @@
 ## 3장 스프링 부트로 마이크로서비스 구축하기
 1. 프로젝트 기본 구성
   - 버전: 자바11, 스프링부트. 2.2.3
-    - 본인은 자바17(코틀린), 스프링부트 3.2.2 로 작업함
+    - 본인은 자바17, 스프링부트 3.2.2 로 작업함
   - 빌드도구: Maven
-  - 의존성: Spring Web, Actuator, Lombok(코틀린을 사용하여 미사용함)
+  - 의존성: Spring Web, Actuator, Lombok
 
 2. 프로젝트 작성
   - Controller(GET, POST, PUT, DELETE), POJO 클래스, Service 작성
