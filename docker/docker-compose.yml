@@ -1,4 +1,4 @@
-version: '3.7'
+#version: '3.7'
 services:
   database:
     image: postgres:latest
@@ -19,8 +19,8 @@ services:
       test: ["CMD-SHELL", "pg_isready -U postgres"]
       start_period: 5s
       start_interval: 5s
-      interval: 30s
-      timeout: 30s
+      interval: 5s
+      timeout: 3s
       retries: 3
   configserver:
     image: ostock/config-server:latest
@@ -34,9 +34,9 @@ services:
         test: ["CMD-SHELL", "curl -f http://configserver:8071/actuator/health || exit 1"]
         start_period: 5s
         start_interval: 5s
-        interval: 30s
-        timeout: 30s
-        retries: 3
+        interval: 5s
+        timeout: 3s
+        retries: 10
   eurekaserver:
     image: ostock/eureka-server:latest
     container_name: eurekaserver
@@ -54,9 +54,9 @@ services:
       test: [ "CMD-SHELL", "curl -f http://eurekaserver:8070/actuator/health || exit 1" ]
       start_period: 5s
       start_interval: 5s
-      interval: 30s
-      timeout: 30s
-      retries: 3
+      interval: 5s
+      timeout: 3s
+      retries: 10
   licensingservice:
     image: ostock/licensing-service:latest
     container_name: licensingservice
