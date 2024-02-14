@@ -3,9 +3,9 @@
 ## docker-compose로 실행
 ```shell
 # 전체시작 
-docker-compose up
+docker compose up
 # 전체 종료
-docker-compose down
+docker compose down
 # 특정 서비스 종료
 docker compose stop licensingservice
 docker compose down licensingservice
