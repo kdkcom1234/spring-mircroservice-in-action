@@ -1,9 +1,6 @@
 package com.optimagrowth.license.model;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.springframework.hateoas.RepresentationModel;
 
 import lombok.Getter;
@@ -28,6 +25,17 @@ public class License extends RepresentationModel<License> {
     private String licenseType;
     @Column(name="comment")
     private String comment;
+
+    // 데이터베이스 필드에서 제외, organization-service에서 조회되는 필드
+    @Transient
+    private String organizationName;
+    @Transient
+    private String contactName;
+    @Transient
+    private String contactPhone;
+    @Transient
+    private String contactEmail;
+
 
     public License withComment(String comment){
         this.setComment(comment);
