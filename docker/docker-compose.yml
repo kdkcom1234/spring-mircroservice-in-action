@@ -31,7 +31,7 @@ services:
     networks:
       - backend
     healthcheck:
-        test: ["CMD-SHELL", "curl -f http://configserver:8071/actuator/health || exit 1"]
+        test: ["CMD-SHELL", "curl -f http://configserver:8071/actuator/health | grep UP || exit 1"]
         start_period: 5s
         start_interval: 5s
         interval: 5s
@@ -51,7 +51,7 @@ services:
     networks:
       - backend
     healthcheck:
-      test: [ "CMD-SHELL", "curl -f http://eurekaserver:8070/actuator/health || exit 1" ]
+      test: [ "CMD-SHELL", "curl -f http://eurekaserver:8070/actuator/health | grep UP || exit 1" ]
       start_period: 5s
       start_interval: 5s
       interval: 5s
