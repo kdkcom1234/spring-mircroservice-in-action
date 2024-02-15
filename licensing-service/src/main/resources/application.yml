@@ -4,6 +4,31 @@ spring:
   config:
     import: optional:configserver:http://localhost:8071
 
+management:
+  endpoints.web.exposure.include:
+    - '*'
+  endpoint.health.show-details: always
+  health.circuitbreakers.enabled: true
+
+resilience4j.circuitbreaker:
+  configs:
+    default:
+      registerHealthIndicator: true
+      slidingWindowSize: 10
+      minimumNumberOfCalls: 5
+      permittedNumberOfCallsInHalfOpenState: 3
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      waitDurationInOpenState: 5s
+      failureRateThreshold: 50
+      eventConsumerBufferSize: 10
+      recordExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+        - java.util.concurrent.TimeoutException
+        - java.io.IOException
+  instances:
+    licenseService:
+      baseConfig: default
+
 #management:
 #  endpoints:
 #    web:
