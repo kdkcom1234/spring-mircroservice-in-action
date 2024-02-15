@@ -70,11 +70,14 @@ public class LicenseService {
 
     @CircuitBreaker(name = "licenseService", fallbackMethod = "buildFallbackLicenseList")
     public List<License> getLicensesByOrganization(String organizationId) throws TimeoutException {
+        // circuit breaker가 OPEN되면 더 이상 함수 내부의 코드가 실행되지 않는다.
         System.out.println("Called");
+
         Random rand = new Random();
         int randomNum = rand.nextInt((3 - 1) + 1) + 1;
-        if (randomNum > 0)
+        if (randomNum % 2 == 0)
             throw new java.util.concurrent.TimeoutException();
+
 //        randomlyRunLong();
         return licenseRepository.findByOrganizationId(organizationId);
     }
@@ -89,20 +92,20 @@ public class LicenseService {
         return fallbackList;
     }
 
-    private void randomlyRunLong() {
-        Random rand = new Random();
-        int randomNum = rand.nextInt((3 - 1) + 1) + 1;
-        if (randomNum==3) sleep();
-    }
-    private void sleep() {
-        try {
-            System.out.println("Sleep");
-            Thread.sleep(5000);
-            throw new java.util.concurrent.TimeoutException();
-        } catch (InterruptedException | TimeoutException e) {
-            logger.error(e.getMessage());
-        }
-    }
+//    private void randomlyRunLong() {
+//        Random rand = new Random();
+//        int randomNum = rand.nextInt((3 - 1) + 1) + 1;
+//        if (randomNum==3) sleep();
+//    }
+//    private void sleep() {
+//        try {
+//            System.out.println("Sleep");
+//            Thread.sleep(5000);
+//            throw new java.util.concurrent.TimeoutException();
+//        } catch (InterruptedException | TimeoutException e) {
+//            logger.error(e.getMessage());
+//        }
+//    }
 
     private Organization retrieveOrganizationInfo(String organizationId, String clientType) {
         Organization organization = null;

@@ -215,3 +215,31 @@ docker run -d -p 8200:8200 --name value -e 'VAULT_DEV_ROOT_TOKEN_ID=myroot' -e '
   - 성공한 요청에는 0, 실패한 요청에는 1을 저장한다.
   - 링 비트 버퍼 크기가 모두 찼을 때만 임계치를 평가한다.
   - 예) 링 비트 버퍼 크기가 12이면 12번의 호출이 일어나야 임계치를 평가한다. 임계치가 50%이면 12개중에 실패가 6개
+  - ** 슬라이딩 윈도 방식을 사용하고 있음, 기본은 count-based
+    - 예) 슬라이딩 윈도 크기가 10이면 최근 10개 기준으로 임계치를 평가함 
+    - https://resilience4j.readme.io/docs/circuitbreaker
+    - https://jydlove.tistory.com/71
+```yaml
+resilience4j.circuitbreaker:
+  instances:
+    licenseService:
+      # actuator에 상태를 등록함
+      registerHealthIndicator: true
+      # 최근 10개 단위로 성공률 측정
+      slidingWindowSize: 10
+      # 최소5개가 넘어가면 성공률 측정
+      minimumNumberOfCalls: 5
+      permittedNumberOfCallsInHalfOpenState: 3
+      # 별도의 트리거 없이 OPEN에서 HALF-OPEN으로 넘어감
+      automaticTransitionFromOpenToHalfOpenEnabled: true
+      waitDurationInOpenState: 5s
+      failureRateThreshold: 50
+      # 서킷 브레이커 이벤트 버퍼 사이즈
+      # /actuator/circuitbreakerevents 경로를 통해 확인 가능
+      eventConsumerBufferSize: 10
+      # 오류로 처리할 예외 클래스 목록
+      recordExceptions:
+        - org.springframework.web.client.HttpServerErrorException
+        - java.util.concurrent.TimeoutException
+        - java.io.IOException
+```
