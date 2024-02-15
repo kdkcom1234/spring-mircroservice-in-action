@@ -229,6 +229,8 @@ resilience4j.circuitbreaker:
       slidingWindowSize: 10
       # 최소5개가 넘어가면 성공률 측정
       minimumNumberOfCalls: 5
+      # HALF-OPEN 상태에서 CLOSED/OPEN 상태로 가기 위한 개수
+      # 예) 임계치50%, 3회 호출에서 1회만 실패면 CLOSED로 넘어감
       permittedNumberOfCallsInHalfOpenState: 3
       # 별도의 트리거 없이 OPEN에서 HALF-OPEN으로 넘어감
       automaticTransitionFromOpenToHalfOpenEnabled: true
