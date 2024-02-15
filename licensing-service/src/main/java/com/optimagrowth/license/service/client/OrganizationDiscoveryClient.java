@@ -1,5 +1,6 @@
 package com.optimagrowth.license.service.client;
 
+import io.github.resilience4j.circuitbreaker.annotation.CircuitBreaker;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import com.optimagrowth.license.model.Organization;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ public class OrganizationDiscoveryClient {
     @Autowired
     private DiscoveryClient discoveryClient;
 
+    @CircuitBreaker(name = "organizationService")
     public Organization getOrganization(String organizationId) {
         RestTemplate restTemplate = new RestTemplate();
         // 조직 서비스의 모든 인스턴스 리스트를 얻는다.
