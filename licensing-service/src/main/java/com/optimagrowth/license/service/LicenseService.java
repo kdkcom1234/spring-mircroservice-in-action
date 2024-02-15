@@ -70,12 +70,14 @@ public class LicenseService {
 
     @CircuitBreaker(name = "licenseService", fallbackMethod = "buildFallbackLicenseList")
     public List<License> getLicensesByOrganization(String organizationId) throws TimeoutException {
-        // circuit breaker가 OPEN되면 더 이상 함수 내부의 코드가 실행되지 않는다.
+        // circuit breaker가 OPEN되면 지정 기간 동안 더 이상 함수 내부의 코드가 실행되지 않는다.
+        // 지정 기간이 지나면 HALF-OPEN 상태로 바뀌고, 다시 임계치를 측정한후 상태 전이를 한다.
         System.out.println("Called");
 
         Random rand = new Random();
         int randomNum = rand.nextInt((3 - 1) + 1) + 1;
         if (randomNum % 2 == 0)
+//        if (randomNum > 0)
             throw new java.util.concurrent.TimeoutException();
 
 //        randomlyRunLong();
