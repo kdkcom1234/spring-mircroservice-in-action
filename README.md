@@ -247,3 +247,8 @@ resilience4j.circuitbreaker:
         - java.util.concurrent.TimeoutException
         - java.io.IOException
 ```
+### ThreadLocal과 Resilience4j
+- Resilience4j에서 ThreadPool Bulkhead와 같이 함수를 별도의 스레드 풀에서 처리를 하는 경우
+- 같은 부모 스레드의 특정 값을 자식 스레드인 벌크헤드 스레드에 전달하고자할 때 ThrealdLocal을 이용하여 전달할 수 있다.
+- 부모 스레드에서 ThreadLocal Context에 set, 자식 스레드에서 get
+- 예를 들어 서블릿 필터(부모스레드) -> 스레드풀벌크헤드 서비스(자식스레드)
