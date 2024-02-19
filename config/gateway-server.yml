@@ -1,3 +1,9 @@
+spring:
+  cloud:
+    gateway:
+      dicovery.locator:
+        enabled: true
+        lowerCaseServiceId: true
 server:
   port: 8072
 eureka:
