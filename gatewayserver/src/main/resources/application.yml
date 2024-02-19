@@ -3,9 +3,3 @@ spring:
     name: gateway-server
   config:
     import: optional:configserver:http://localhost:8071
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
