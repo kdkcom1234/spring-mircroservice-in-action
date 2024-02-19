@@ -252,3 +252,26 @@ resilience4j.circuitbreaker:
 - 같은 부모 스레드의 특정 값을 자식 스레드인 벌크헤드 스레드에 전달하고자할 때 ThrealdLocal을 이용하여 전달할 수 있다.
 - 부모 스레드에서 ThreadLocal Context에 set, 자식 스레드에서 get
 - 예를 들어 서블릿 필터(부모스레드) -> 스레드풀벌크헤드 서비스(자식스레드)
+
+---
+
+## 8장 스프링 클라우드 게이트웨이를 이용한 서비스 라우팅
+
+### service명으로 자동 라우팅
+```yaml
+management:
+  endpoint:
+    gateway:
+      enabled: true
+
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+```
+- http://게이트웨이서버:포트/actuator/routes 로 경로 맵핑 확인 가능
+- http://게이트웨이서버:포트/서비스명/이하경로로 서비스 접근 가능
+- 예) http://localhost:8072/licensing-service/v1/organization/d898a142-de44-466c-8c88-9ceb2c2429d3/license/f2a9c9d4-d2c0-44fa-97fe-724d77173c62/feign
