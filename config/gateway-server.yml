@@ -1,6 +1,14 @@
 server:
   port: 8072
 
+spring:
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true
+
 eureka:
   instance:
     preferIpAddress: true
@@ -19,10 +27,3 @@ management:
       exposure:
         include: "*"
 
-spring:
-  cloud:
-    gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
