@@ -26,4 +26,16 @@ spring:
         locator:
           enabled: true
           lower-case-service-id: true
+        routes:
+        - id: organization-service # route의 id
+          uri: lb://organization-service # lb://유레카에 등록된 서비스명
+
+          predicates:
+          # 경로(path)는 load() 메서드로 설정되지만, 여러 옵션 중 하나다.
+          - Path=/organization/**
+
+          filters: # 응답을 보내기 전이나 후에 요청 또는 응답을 수정하고자 스프링 web.filters들을 필터링한다.
+          # 매개변수 및 교체 순서(replacement order)로 경로 정규식을 받아 요청 경로를 /organization/** 에서 /** 변경한다.
+          - RewritePath=/organization/(?<path>.*), /$\{path}
+
 
