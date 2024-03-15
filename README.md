@@ -267,11 +267,34 @@ management:
 spring:
   cloud:
     gateway:
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
+      discovery.locator:
+        enabled: true
+        lower-case-service-id: true
 ```
 - http://게이트웨이서버:포트/actuator/routes 로 경로 맵핑 확인 가능
 - http://게이트웨이서버:포트/서비스명/이하경로로 서비스 접근 가능
 - 예) http://localhost:8072/licensing-service/v1/organization/d898a142-de44-466c-8c88-9ceb2c2429d3/license/f2a9c9d4-d2c0-44fa-97fe-724d77173c62/feign
+
+
+### 수동 라우팅
+```yaml
+spring:
+  cloud:
+    gateway:
+      routes:
+      - id: organization-service # route의 id
+        uri: lb://organization-service # lb://유레카에 등록된 서비스명
+
+        predicates:
+        # 경로(path)는 load() 메서드로 설정되지만, 여러 옵션 중 하나다.
+        - Path=/organization/**
+
+        filters: # 응답을 보내기 전이나 후에 요청 또는 응답을 수정하고자 스프링 web.filters들을 필터링한다.
+        # 매개변수 및 교체 순서(replacement order)로 경로 정규식을 받아 요청 경로를 /organization/** 에서 /** 변경한다.
+        - RewritePath=/organization/(?<path>.*), /$\{path}
+```
+
+### 동적으로 라우팅 구성을 재로딩
+- Spring Boot Application에 @RefreshScope이 활성화 되어 있는 경우, 
+- /actuator/refresh로 수동으로 추가된 경로 새로고침 가능
+- 자동 라우팅의 경우에는 게이트웨이를 재시작해야만 적용된다.
