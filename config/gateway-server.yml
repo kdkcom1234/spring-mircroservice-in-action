@@ -22,9 +22,9 @@ management:
 spring:
   cloud:
     gateway:
-      discovery.locator:
-          enabled: true
-          lower-case-service-id: true
+#      discovery.locator:
+#          enabled: true
+#          lower-case-service-id: true
       routes:
       - id: organization-service # route의 id
         uri: lb://organization-service # lb://유레카에 등록된 서비스명
