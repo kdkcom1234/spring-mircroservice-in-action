@@ -37,4 +37,3 @@ spring:
         # 매개변수 및 교체 순서(replacement order)로 경로 정규식을 받아 요청 경로를 /organization/** 에서 /** 변경한다.
         - RewritePath=/organization/(?<path>.*), /$\{path}
 
-
