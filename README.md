@@ -298,3 +298,41 @@ spring:
 - Spring Boot Application에 @RefreshScope이 활성화 되어 있는 경우, 
 - /actuator/refresh로 수동으로 추가된 경로 새로고침 가능
 - 자동 라우팅의 경우에는 게이트웨이를 재시작해야만 적용된다.
+
+---
+
+## 9장 마이크로서비스 보안
+
+### 키클록 보안의 네 가지 구성요소
+
+- 보호 자원(protected resource)
+  - 적절한 권한이 있는 인증된 사용자만 접근할 수 있는 자원(마이크로서비스)
+- 자원 소유자(resource owner)
+  - 사용자의 서비스 접근 권한 및 수행 가능 작업을 정의
+- 애플리케이션(application)
+  - 서비스를 호출하는 애플리케이션
+- 인증 및 인가서버(authentication/authorization)
+  - 애플리케이션과 서비스 사이의 중개자
+
+### local 에서 실행
+https://www.keycloak.org/getting-started/getting-started-zip
+```shell
+bin/kc.sh start-dev
+```
+
+### docker compose로 실행
+```yaml
+#version: '3.7'
+services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:24.0.1
+    restart: always
+    environment:
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    command:
+      - start-dev
+```
+
