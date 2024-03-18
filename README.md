@@ -336,3 +336,20 @@ services:
       - start-dev
 ```
 
+### 사용자 설정
+- Email Verified체크
+- 이메일, First/Last name 모두 입력해야 토큰을 얻을 수 있다. 그렇지 않으면 토큰 조회시에 아래와 같은 메시지 출력
+```json
+{
+    "error": "invalid_grant",
+    "error_description": "Account is not fully set up"
+}
+```
+
+### 액세스토큰 얻어오기
+http://localhost:8080/realms/spmia-realm/protocol/openid-connect/token
+Header
+  Authorization: Basic client_id:client_secret
+Body
+  grant_type=password&username=사용자이름&password=비밀번호
+
