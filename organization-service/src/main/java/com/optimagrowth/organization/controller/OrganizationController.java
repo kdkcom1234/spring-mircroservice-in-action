@@ -22,22 +22,26 @@ public class OrganizationController {
     @Autowired
     private OrganizationService service;
 
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @RequestMapping(value="/{organizationId}",method = RequestMethod.GET)
     public ResponseEntity<Organization> getOrganization(@PathVariable("organizationId") String organizationId, HttpServletRequest req) {
         System.out.println(req.getHeader("Authorization"));
         return ResponseEntity.ok(service.findById(organizationId));
     }
 
+    @RolesAllowed({"ROLE_ADMIN"})
     @RequestMapping(value="/{organizationId}",method = RequestMethod.PUT)
     public void updateOrganization( @PathVariable("organizationId") String id, @RequestBody Organization organization) {
         service.update(organization);
     }
 
+    @RolesAllowed({"ROLE_ADMIN"})
     @PostMapping
     public ResponseEntity<Organization>  saveOrganization(@RequestBody Organization organization) {
         return ResponseEntity.ok(service.create(organization));
     }
 
+    @RolesAllowed({"ROLE_ADMIN"})
     @RequestMapping(value="/{organizationId}",method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteOrganization( @PathVariable("id") String id,  @RequestBody Organization organization) {
