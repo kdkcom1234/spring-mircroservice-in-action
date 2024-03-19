@@ -353,3 +353,64 @@ Header
 Body
   grant_type=password&username=사용자이름&password=비밀번호
 
+```json
+{
+    "access_token": "eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIxbHVCT0tOTElicTIyREMzNmstLXpDT1luM3Z4MmVZY3dIbFdXbkhLQ3hnIn0.eyJleHAiOjE3MTA4Mjc3NDIsImlhdCI6MTcxMDgyNzQ0MiwianRpIjoiYmI3ZTQxZTMtNTFkNC00NWU3LWE3MzYtNDQ5OTI0ZDNlYzBmIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9zcG1pYS1yZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJlNTA5YmQ5ZS00MjRmLTQ2NjgtYmNjMC0yOWMyZjU0M2ZhYTMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJvc3RvY2siLCJzZXNzaW9uX3N0YXRlIjoiNjZjOWYzYjctYzNjNC00YTg2LWI2ZDctZGUyNjI0ZmY3NmQyIiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtc3BtaWEtcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiIsIm9zdG9jay1hZG1pbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7Im9zdG9jayI6eyJyb2xlcyI6WyJBRE1JTiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiNjZjOWYzYjctYzNjNC00YTg2LWI2ZDctZGUyNjI0ZmY3NmQyIiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJpbGxhcnkgaHVheWx1cG8iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJpbGxhcnkuaHVheWx1cG8iLCJnaXZlbl9uYW1lIjoiaWxsYXJ5IiwiZmFtaWx5X25hbWUiOiJodWF5bHVwbyIsImVtYWlsIjoiaWxsYXJ5Lmh1YXlsdXBvQG9zdG9jay5jb20ifQ.PuT2q-VfN-Ssmyg1mulaBrw8YDwnT-EW1ogIO61TCTPee4GfBfI_S-BdvhO_y5DXuv191fBChPQ0eu_Kjc6fy9PEU4mHJUauJD6DTbs_2Kn7IfPShiR8QVoYEAR6jnticRwY4xWfervuqC3aO1DInGAKFDKB7QQy6UcqC3m-LV_lJA2hHVWi783blPN7RUKu1m-p6T8nVIeZQ1kyBffFwSI5Tig3y5k7RtxNO0uIlZp0-S_-VIpXV3y7ZdmISvIPXLvBiHGOdB7vXZzq1d-npWqF51L366Zcw7gu1pC2bZrfFyX4YJRcBH5f7jNp9x5Cd0QqsiBZHGx8h7C8d5JQ8A",
+    "expires_in": 300,
+    "refresh_expires_in": 1800,
+    "refresh_token": "eyJhbGciOiJIUzUxMiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICJjNzc2ZTdmMC03Yjg1LTRhZjEtOGZkZS03NGIxM2ZjMzgwYzEifQ.eyJleHAiOjE3MTA4MjkyNDIsImlhdCI6MTcxMDgyNzQ0MiwianRpIjoiMTkxNWUzOWEtMDIzMi00MGUwLWJmYzQtMmFiYTgxM2E2YzkyIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9zcG1pYS1yZWFsbSIsImF1ZCI6Imh0dHA6Ly9sb2NhbGhvc3Q6ODA4MC9yZWFsbXMvc3BtaWEtcmVhbG0iLCJzdWIiOiJlNTA5YmQ5ZS00MjRmLTQ2NjgtYmNjMC0yOWMyZjU0M2ZhYTMiLCJ0eXAiOiJSZWZyZXNoIiwiYXpwIjoib3N0b2NrIiwic2Vzc2lvbl9zdGF0ZSI6IjY2YzlmM2I3LWMzYzQtNGE4Ni1iNmQ3LWRlMjYyNGZmNzZkMiIsInNjb3BlIjoicHJvZmlsZSBlbWFpbCIsInNpZCI6IjY2YzlmM2I3LWMzYzQtNGE4Ni1iNmQ3LWRlMjYyNGZmNzZkMiJ9.aJQ1d73KBaU8qgz_O-MXz_n1lJKREvTN3v2oZoKIJzMl0E3hckj4_NlKSQZxCSISAgA9S6G9eghtzwNE9ZLkIQ",
+    "token_type": "Bearer",
+    "not-before-policy": 0,
+    "session_state": "66c9f3b7-c3c4-4a86-b6d7-de2624ff76d2",
+    "scope": "profile email"
+}
+```
+
+
+### 인증제어를 위한 서비스 환경구성
+```xml
+<!-- pom.xml -->
+<dependencies>
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-security</artifactId>
+  </dependency>
+  <dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-oauth2-client</artifactId>
+  </dependency>
+  <dependency>
+  <groupId>org.springframework.boot</groupId>
+  <artifactId>spring-boot-starter-oauth2-resource-server</artifactId>
+  </dependency>
+  <dependency>
+  <groupId>org.springframework.security</groupId>
+  <artifactId>spring-security-oauth2-jose</artifactId>
+  </dependency>
+</dependencies>
+```
+```yaml
+# application.yml
+spring.security.oauth2.resourceserver.jwt.issuer-uri=http://localhost:8080/realms/spmia-realm
+spring.security.oauth2.resourceserver.jwt.jwk-set-uri=http://localhost:8080/realms/spmia-realm/protocol/openid-connect/certs
+```
+```java
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity
+                .authorizeHttpRequests(registry -> registry
+                        .anyRequest().authenticated()
+                );
+
+        return httpSecurity.build();
+    }
+}
+```
+
+### Authorization: Bearer 액세스토큰을 넣고 서비스 호출 
+- GET http://localhost:8072/organization/v1/organization/d898a142-de44-466c-8c88-9ceb2c2429d3
+- HEADER Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIxbHVCT0tOTElicTIyREMzNmstLXpDT1luM3Z4MmVZY3dIbFdXbkhLQ3hnIn0.eyJleHAiOjE3MTA4MjY1NTQsImlhdCI6MTcxMDgyNjI1NCwianRpIjoiNzM5YmRiZjEtZGZjYS00ZWI5LThiZDAtNjE3NmFlNmJkOWNkIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9zcG1pYS1yZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJlNTA5YmQ5ZS00MjRmLTQ2NjgtYmNjMC0yOWMyZjU0M2ZhYTMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJvc3RvY2siLCJzZXNzaW9uX3N0YXRlIjoiMTQ1YzUzZmEtNWE2Mi00MjgzLThmZWYtZTAzYzIyMjRiZTk3IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtc3BtaWEtcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiIsIm9zdG9jay1hZG1pbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7Im9zdG9jayI6eyJyb2xlcyI6WyJBRE1JTiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiMTQ1YzUzZmEtNWE2Mi00MjgzLThmZWYtZTAzYzIyMjRiZTk3IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJpbGxhcnkgaHVheWx1cG8iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJpbGxhcnkuaHVheWx1cG8iLCJnaXZlbl9uYW1lIjoiaWxsYXJ5IiwiZmFtaWx5X25hbWUiOiJodWF5bHVwbyIsImVtYWlsIjoiaWxsYXJ5Lmh1YXlsdXBvQG9zdG9jay5jb20ifQ.DknocogrbggCNymww97U6E3aQjSCwhljLUQhy37NLPApYDGIXfel9Fq75uA97tP6EXZIkQUiuWJG0eYLkyWh8SaDZDPNKMl08h_lrvRU3_PUYqdSEGFn6Ah_RBTO5FHp7ShQedW04Y5tUuMaiJ-p6OSEndE_3apwRHMk9Y5-bgvUn04zpYG0mrF2bJyOdzYFkUlhRuDZaso9FM5fh1Mi0dT-dCUKAjvzDItCO8wcHZ1nRCWnvpm0WgxmakuYsGyuShXIO7oYLdRXZHFKT38Jbnr0ItlQ2mKKwrA3ciuXmpVBxB_f-tpNuqJKmE2zNbJ9bDavAPshc_rQL0ISIFUl7w
