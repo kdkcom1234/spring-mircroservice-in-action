@@ -414,3 +414,84 @@ public class SecurityConfig {
 ### Authorization: Bearer 액세스토큰을 넣고 서비스 호출 
 - GET http://localhost:8072/organization/v1/organization/d898a142-de44-466c-8c88-9ceb2c2429d3
 - HEADER Authorization: Bearer eyJhbGciOiJSUzI1NiIsInR5cCIgOiAiSldUIiwia2lkIiA6ICIxbHVCT0tOTElicTIyREMzNmstLXpDT1luM3Z4MmVZY3dIbFdXbkhLQ3hnIn0.eyJleHAiOjE3MTA4MjY1NTQsImlhdCI6MTcxMDgyNjI1NCwianRpIjoiNzM5YmRiZjEtZGZjYS00ZWI5LThiZDAtNjE3NmFlNmJkOWNkIiwiaXNzIjoiaHR0cDovL2xvY2FsaG9zdDo4MDgwL3JlYWxtcy9zcG1pYS1yZWFsbSIsImF1ZCI6ImFjY291bnQiLCJzdWIiOiJlNTA5YmQ5ZS00MjRmLTQ2NjgtYmNjMC0yOWMyZjU0M2ZhYTMiLCJ0eXAiOiJCZWFyZXIiLCJhenAiOiJvc3RvY2siLCJzZXNzaW9uX3N0YXRlIjoiMTQ1YzUzZmEtNWE2Mi00MjgzLThmZWYtZTAzYzIyMjRiZTk3IiwiYWNyIjoiMSIsImFsbG93ZWQtb3JpZ2lucyI6WyIqIl0sInJlYWxtX2FjY2VzcyI6eyJyb2xlcyI6WyJvZmZsaW5lX2FjY2VzcyIsImRlZmF1bHQtcm9sZXMtc3BtaWEtcmVhbG0iLCJ1bWFfYXV0aG9yaXphdGlvbiIsIm9zdG9jay1hZG1pbiJdfSwicmVzb3VyY2VfYWNjZXNzIjp7Im9zdG9jayI6eyJyb2xlcyI6WyJBRE1JTiJdfSwiYWNjb3VudCI6eyJyb2xlcyI6WyJtYW5hZ2UtYWNjb3VudCIsIm1hbmFnZS1hY2NvdW50LWxpbmtzIiwidmlldy1wcm9maWxlIl19fSwic2NvcGUiOiJwcm9maWxlIGVtYWlsIiwic2lkIjoiMTQ1YzUzZmEtNWE2Mi00MjgzLThmZWYtZTAzYzIyMjRiZTk3IiwiZW1haWxfdmVyaWZpZWQiOnRydWUsIm5hbWUiOiJpbGxhcnkgaHVheWx1cG8iLCJwcmVmZXJyZWRfdXNlcm5hbWUiOiJpbGxhcnkuaHVheWx1cG8iLCJnaXZlbl9uYW1lIjoiaWxsYXJ5IiwiZmFtaWx5X25hbWUiOiJodWF5bHVwbyIsImVtYWlsIjoiaWxsYXJ5Lmh1YXlsdXBvQG9zdG9jay5jb20ifQ.DknocogrbggCNymww97U6E3aQjSCwhljLUQhy37NLPApYDGIXfel9Fq75uA97tP6EXZIkQUiuWJG0eYLkyWh8SaDZDPNKMl08h_lrvRU3_PUYqdSEGFn6Ah_RBTO5FHp7ShQedW04Y5tUuMaiJ-p6OSEndE_3apwRHMk9Y5-bgvUn04zpYG0mrF2bJyOdzYFkUlhRuDZaso9FM5fh1Mi0dT-dCUKAjvzDItCO8wcHZ1nRCWnvpm0WgxmakuYsGyuShXIO7oYLdRXZHFKT38Jbnr0ItlQ2mKKwrA3ciuXmpVBxB_f-tpNuqJKmE2zNbJ9bDavAPshc_rQL0ISIFUl7w
+
+
+### Keycloak JWT의 resource_access role을 Spring Security의 Role로 맵핑
+```json
+{
+  "resource_access": {
+    "ostock": {
+      "roles": [
+        "ADMIN"
+      ]
+    }
+  }
+}
+```
+### 커스텀 컨버터 작성
+```java
+public class CustomJwtAuthenticationConverter implements Converter<Jwt, AbstractAuthenticationToken> {
+
+    private final JwtGrantedAuthoritiesConverter defaultGrantedAuthoritiesConverter = new JwtGrantedAuthoritiesConverter();
+
+    @Override
+    public AbstractAuthenticationToken convert(Jwt jwt) {
+        Collection<GrantedAuthority> authorities = defaultGrantedAuthoritiesConverter.convert(jwt);
+        authorities.addAll(extractCustomAuthorities(jwt));
+        return new JwtAuthenticationToken(jwt, authorities);
+    }
+
+    private Collection<GrantedAuthority> extractCustomAuthorities(Jwt jwt) {
+        Map<String, Object> resourceAccess = jwt.getClaim("resource_access");
+        if (resourceAccess == null || !resourceAccess.containsKey("ostock")) {
+            return List.of();
+        }
+        Map<String, Object> ostock = (Map<String, Object>) resourceAccess.get("ostock");
+        List<String> roles = (List<String>) ostock.get("roles");
+        return roles.stream()
+                .map(role -> "ROLE_" + role)
+                .map(SimpleGrantedAuthority::new)
+                .collect(Collectors.toList());
+    }
+}
+```
+
+### Security Filter에 JWT컨버터 추가 및 @RollAllowed활성화
+```java
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(jsr250Enabled = true) // @RolesAllowed 활성화
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeRequests(authorizeRequests ->
+                        authorizeRequests.anyRequest().authenticated()
+                )
+                .oauth2ResourceServer(oauth2ResourceServer ->
+                        oauth2ResourceServer.jwt(jwt ->
+                                jwt.jwtAuthenticationConverter(new CustomJwtAuthenticationConverter())
+                        )
+                );
+        return http.build();
+    }
+}
+```
+
+### @RolesAllowed를 컨트롤러에서 사용
+```java
+@RestController
+@RequestMapping(value="v1/organization")
+public class OrganizationController {
+    @Autowired
+    private OrganizationService service;
+
+    @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
+    @RequestMapping(value = "/{organizationId}", method = RequestMethod.GET)
+    public ResponseEntity<Organization> getOrganization(@PathVariable("organizationId") String organizationId, HttpServletRequest req) {
+        System.out.println(req.getHeader("Authorization"));
+        return ResponseEntity.ok(service.findById(organizationId));
+    }
+}
+```
