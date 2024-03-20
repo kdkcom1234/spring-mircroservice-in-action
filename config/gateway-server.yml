@@ -23,8 +23,8 @@ spring:
   cloud:
     gateway:
       discovery.locator:
-        enabled: true
-        lower-case-service-id: true
+          enabled: true
+          lower-case-service-id: true
       filters:
       - RemoveRequestHeader= Cookie,Set-Cookie
 
