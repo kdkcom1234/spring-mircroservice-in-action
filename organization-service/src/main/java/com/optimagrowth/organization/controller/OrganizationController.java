@@ -25,6 +25,7 @@ public class OrganizationController {
     @RolesAllowed({"ROLE_ADMIN", "ROLE_USER"})
     @RequestMapping(value="/{organizationId}",method = RequestMethod.GET)
     public ResponseEntity<Organization> getOrganization(@PathVariable("organizationId") String organizationId, HttpServletRequest req) {
+        System.out.println(req.getHeader("tmx-correlation-id"));
         System.out.println(req.getHeader("Authorization"));
         return ResponseEntity.ok(service.findById(organizationId));
     }

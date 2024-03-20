@@ -505,7 +505,6 @@ public class FeignClientInterceptor implements RequestInterceptor {
         // interceptor logic
         template.header(UserContext.CORRELATION_ID, UserContextHolder.getContext().getCorrelationId());
         template.header(UserContext.AUTH_TOKEN, UserContextHolder.getContext().getAuthToken());
-        template.header(UserContext.AUTHORIZATION, UserContextHolder.getContext().getAuthorization());
     }
 }
 ```
