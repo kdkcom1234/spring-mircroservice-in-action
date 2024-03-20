@@ -491,3 +491,30 @@ public class OrganizationController {
     }
 }
 ```
+
+
+### FeignClient를 다른 서비스 호출시에 헤더값 추가
+```java
+import feign.RequestInterceptor;
+import feign.RequestTemplate;
+
+public class FeignClientInterceptor implements RequestInterceptor {
+
+    @Override
+    public void apply(RequestTemplate template) {
+        // interceptor logic
+        template.header(UserContext.CORRELATION_ID, UserContextHolder.getContext().getCorrelationId());
+        template.header(UserContext.AUTH_TOKEN, UserContextHolder.getContext().getAuthToken());
+        template.header(UserContext.AUTHORIZATION, UserContextHolder.getContext().getAuthorization());
+    }
+}
+```
+```java
+@FeignClient(value = "organization-service", configuration = {FeignClientInterceptor.class})
+public interface OrganizationFeignClient {
+    @CircuitBreaker(name = "organizationService")
+    @GetMapping(value = "/v1/organization/{organizationId}", consumes = "application/json")
+    Organization getOrganization(@PathVariable String organizationId);
+}
+
+```
