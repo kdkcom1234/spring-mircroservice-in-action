@@ -1,8 +1,6 @@
+package com.optimagrowth.license.config;
 
-package com.optimagrowth.organization.config;
-
-
-import com.optimagrowth.organization.utils.CustomJwtAuthenticationConverter;
+import com.optimagrowth.license.utils.CustomJwtAuthenticationConverter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
